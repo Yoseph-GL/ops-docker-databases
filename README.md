@@ -1,43 +1,41 @@
 # Local DBaaS Sandbox
 
 On-demand database platform for development, experimentation, and coursework.
-KISS philosophy: one stack per directory, one `.env` per stack, one command to start.
+One stack per directory, one `.env` per stack, one command to start.
 
 ## Architecture
 
-All stacks share `core_network` (external bridge) so adminer and other tooling can
-reach any database by container name without exposing additional ports.
+All stacks share `core_network` (external bridge). Adminer and tooling reach any
+database by container name without exposing additional ports.
 
 | Stack | Engine | Host Port | Container Port | Persistence |
 |---|---|---|---|---|
 | `serious` | PostgreSQL 16.3 | `5432` | `5432` | Named volume |
 | `playground` | PostgreSQL 16.3 | `5433` | `5432` | Named volume |
 | `university` | MySQL 8.0 | `3306` | `3306` | Named volume |
-| `test` | MySQL 8.0 | `3307` | `3306` | None (ephemeral) |
-| `test` | PostgreSQL 16.3 | `5434` | `5432` | None (ephemeral) |
+| `test` | MySQL 8.0 | `3307` | `3306` | Ephemeral |
+| `test` | PostgreSQL 16.3 | `5434` | `5432` | Ephemeral |
 | `adminer` | Adminer 4.8 | `8082` | `8080` | Stateless |
 
-All ports bound to `127.0.0.1` — no LAN exposure. Custom host ports avoid
-collisions with other local database instances and allow simultaneous access
-via DataGrip, DBeaver, or psql.
+All ports bound to `127.0.0.1`. Custom host ports avoid collisions with other
+local database instances.
 
-## Quick Start
+## Quickstart
 
 ```bash
 cd serious/          # or playground/, university/, test/
-
-cp .env.example .env # generate credentials
+cp .env.example .env
 docker network create core_network 2>/dev/null || true
 docker compose up -d
 docker compose ps
 ```
 
-## Adminer (SQL GUI)
+## Adminer
 
 ```bash
 cd adminer/
 docker compose up -d
-# Open http://db.test — server field = container name (e.g. serious_pg_v1)
+# http://db.test — server field = container name (e.g. serious_pg_v1)
 ```
 
 ## Shared Network
@@ -50,13 +48,9 @@ docker network create \
     core_network
 ```
 
-## Design Decisions
+## Design
 
-**Restart policy (`restart: 'no'`):** Containers are started manually on demand.
-No background services consuming CPU or RAM when not in use — relevant for
-battery-constrained laptop development.
-
-**Persistence model:** `test` is the only fully ephemeral stack — no volumes
-mounted, data destroyed on `docker compose down`. Designed for CI-like workflows
-and throwaway integration tests. All other stacks retain data across container
-recreation via named Docker volumes.
+- **Restart policy** (`restart: 'no'`): containers started manually on demand.
+  No background services consuming resources when idle.
+- **Persistence:** `test` stacks are fully ephemeral (no volumes, data destroyed
+  on `docker compose down`). All other stacks retain data via named Docker volumes.
