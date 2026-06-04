@@ -1,0 +1,727 @@
+/* adminer.css — Soft purple theme */
+
+/* Design tokens */
+:root {
+  --bg:            #161425;
+  --bg-soft:       #1c1930;
+  --bg-elev:       #25203e;
+  --surface:       #2d2750;
+  --surface-hi:    #352e5e;
+  --text:          #e6e2f5;
+  --text-muted:    #c7c0df;
+  --text-strong:   #fbfaff;
+  --purple:        #a78bfa;
+  --purple-bright: #c4b5fd;
+  --purple-deep:   #7c3aed;
+  --purple-border: #4f3f80;
+  --line:          #3b315e;
+  --hover:         #312954;
+  --ok:            #4ade80;
+  --error:         #f87171;
+  --warn:          #fbbf24;
+
+  --jush-keyword:  #c4b5fd;
+  --jush-string:   #86efac;
+  --jush-number:   #fca5a5;
+  --jush-comment:  #7c6ea8;
+  --jush-func:     #93c5fd;
+  --jush-var:      #fdba74;
+  --jush-op:       #f0abfc;
+}
+
+/* Scrollbars */
+* { scrollbar-color: var(--purple) var(--bg-soft); scrollbar-width: thin; }
+::-webkit-scrollbar            { width: 8px; height: 8px; }
+::-webkit-scrollbar-track      { background: var(--bg-soft); }
+::-webkit-scrollbar-thumb      { background: var(--purple-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover{ background: var(--purple); }
+
+/* Base reset */
+html, body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Catch anything Adminer left unthemed */
+body, #header, #menu, #content,
+div, span, p, li, td, th, label,
+h1, h2, h3, h4, legend, caption {
+  color: var(--text) !important;
+}
+
+body, input, select, textarea, button,
+th, td, a, div, span, h1, h2, h3, label, legend {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Layout skeleton — Adminer uses <table class="layout"> for two-column layout */
+table.layout,
+table.layout > tbody > tr > td {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  vertical-align: top !important;
+}
+
+/* Header */
+#header {
+  background: var(--bg-elev) !important;
+  border-bottom: 1px solid var(--purple-border) !important;
+  padding: 8px 16px !important;
+  color: var(--text-strong) !important;
+}
+#header a,
+#header a:visited { color: var(--purple-bright) !important; text-decoration: none !important; }
+#header a:hover   { color: #ddd6fe !important; text-decoration: underline !important; }
+#header span { color: var(--text-muted) !important; }
+
+/* Sidebar */
+#menu {
+  background: var(--bg-soft) !important;
+  border-right: 1px solid var(--line) !important;
+  min-width: 180px !important;
+  padding: 8px 0 !important;
+  vertical-align: top !important;
+}
+
+#menu input[type="search"],
+#menu input[type="text"] {
+  width: calc(100% - 16px) !important;
+  margin: 6px 8px !important;
+}
+
+#tables { padding: 0 !important; background: transparent !important; }
+
+#tables ul,
+#tables li,
+#menu ul,
+#menu li {
+  background: transparent !important;
+  color: var(--text) !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Each <li> groups two links: a.select + a.structure */
+#tables li {
+  display: flex !important;
+  align-items: baseline !important;
+  background: transparent !important;
+}
+#tables li:hover {
+  background: var(--hover) !important;
+}
+
+/* All links inside #tables */
+#tables a,
+#tables a:link,
+#tables a:visited,
+#tables a:hover,
+#tables a:active,
+#tables li a,
+#tables li > a {
+  background: transparent !important;
+  color: var(--text) !important;
+  text-decoration: none !important;
+}
+
+/* Mini "select" link */
+#tables a.select,
+#tables a.select:link,
+#tables a.select:visited {
+  display: inline-block !important;
+  background: var(--surface) !important;
+  color: var(--purple-bright) !important;
+  font-size: 11px !important;
+  padding: 4px 7px !important;
+  margin: 3px 4px 3px 8px !important;
+  border-radius: 4px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+}
+#tables a.select:hover {
+  background: var(--purple-deep) !important;
+  color: #fff !important;
+}
+
+/* Table name link */
+#tables a.structure,
+#tables a.structure:link,
+#tables a.structure:visited {
+  display: inline-block !important;
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  padding: 6px 10px 6px 4px !important;
+  flex: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+#tables a.structure:hover {
+  color: var(--purple-bright) !important;
+  background: transparent !important;
+}
+
+/* Active table highlight */
+#tables li.active           { background: var(--surface) !important; border-left: 3px solid var(--purple) !important; }
+#tables li.active a.structure { color: var(--purple-bright) !important; font-weight: 700 !important; }
+
+/* Saved connections list */
+#logins,
+#logins ul,
+#logins li {
+  background: transparent !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#logins a,
+#logins a:link,
+#logins a:visited,
+#logins a:hover,
+#logins a:active,
+#logins li > a {
+  background: transparent !important;
+  color: var(--purple-bright) !important;
+  display: block !important;
+  padding: 5px 12px !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+#logins a:hover { color: #ddd6fe !important; background: var(--hover) !important; }
+
+#menu a,
+#menu a:visited { color: var(--purple-bright) !important; text-decoration: none !important; }
+#menu a:hover   { color: #ddd6fe !important; text-decoration: underline !important; }
+
+#menu h3 {
+  background: var(--bg-elev) !important;
+  color: var(--purple-bright) !important;
+  font-size: 11px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  margin: 10px 0 2px !important;
+  padding: 4px 12px !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Content area */
+#content {
+  background: transparent !important;
+  padding: 16px !important;
+  color: var(--text) !important;
+}
+
+/* Headings */
+h1, h2 {
+  background: var(--bg-elev) !important;
+  color: var(--text-strong) !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--purple-border) !important;
+  margin-bottom: 12px !important;
+}
+h3 {
+  color: var(--purple-bright) !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding-bottom: 4px !important;
+  margin-bottom: 8px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+}
+
+/* Links */
+a, a:visited { color: var(--purple-bright) !important; text-decoration: none !important; }
+a:hover      { color: #ddd6fe !important; text-decoration: underline !important; }
+
+/* Form controls */
+input,
+select,
+textarea {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text-strong) !important;
+  padding: 7px 10px !important;
+  border-radius: 6px !important;
+}
+input::placeholder, textarea::placeholder { color: var(--text-muted) !important; }
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  border-color: var(--purple) !important;
+  box-shadow: 0 0 0 2px rgba(167,139,250,.25) !important;
+}
+
+select option {
+  background: var(--surface) !important;
+  color: var(--text-strong) !important;
+}
+select option:hover,
+select option:checked {
+  background: var(--hover) !important;
+  color: var(--purple-bright) !important;
+}
+
+input[type="checkbox"] { accent-color: var(--purple) !important; }
+
+/* Buttons */
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+button,
+.button,
+a.button {
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #9f7aea !important;
+  cursor: pointer !important;
+  padding: 7px 14px !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+input[type="submit"]:hover,
+input[type="button"]:hover,
+button:hover,
+.button:hover,
+a.button:hover {
+  background: linear-gradient(180deg, #9f7aea 0%, #8b5cf6 100%) !important;
+  border-color: #c4b5fd !important;
+}
+
+/* Destructive-action links */
+p > a[href*="drop"],
+p > a[href*="delete"],
+p > a[href*="truncate"] {
+  color: var(--error) !important;
+}
+
+/* Data tables — scope to non-layout tables to preserve the skeleton */
+#content table:not(.layout) {
+  border-collapse: collapse !important;
+  border: 1px solid var(--line) !important;
+  background: var(--bg-soft) !important;
+  color: var(--text) !important;
+  width: 100% !important;
+}
+#content table:not(.layout) th {
+  background: var(--surface) !important;
+  color: var(--purple-bright) !important;
+  border: 1px solid var(--line) !important;
+  padding: 7px 10px !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+}
+#content table:not(.layout) td {
+  background: #201b36 !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  padding: 6px 10px !important;
+}
+#content table:not(.layout) tr:nth-child(even) td { background: #231d3b !important; }
+#content table:not(.layout) tr:hover td           { background: var(--hover) !important; }
+
+td.null { color: var(--text-muted) !important; font-style: italic !important; }
+
+/* Checkable rows */
+.checkable th:first-child,
+.checkable td:first-child {
+  text-align: center !important;
+  width: 28px !important;
+}
+tr.selected td { background: #3b2f6b !important; }
+
+#content table th a,
+#content table th a:visited { color: var(--purple-bright) !important; }
+
+/* SQL console */
+.sqlarea,
+textarea.sqlarea,
+#form textarea,
+#sql textarea {
+  background: #12101f !important;
+  color: var(--text-strong) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 8px !important;
+  font-family: "Cascadia Code", "Fira Code", "Consolas", monospace !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  padding: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  resize: vertical !important;
+}
+.sqlarea:focus,
+textarea.sqlarea:focus {
+  border-color: var(--purple) !important;
+  box-shadow: 0 0 0 3px rgba(167,139,250,.20) !important;
+  outline: none !important;
+}
+
+/* Syntax highlighting (jush) */
+.jush, [class^="jush-"], [class*=" jush-"] {
+  color: var(--text) !important;
+  background: transparent !important;
+}
+
+.jush-sql,
+.jush-sql_code { color: var(--jush-keyword) !important; font-weight: 600 !important; }
+.jush-quo,
+.jush-apo,
+.jush-bac      { color: var(--jush-string) !important; }
+.jush-num       { color: var(--jush-number) !important; }
+.jush-com,
+.jush-com_       { color: var(--jush-comment) !important; font-style: italic !important; }
+.jush-fun        { color: var(--jush-func) !important; }
+.jush-var        { color: var(--jush-var)  !important; }
+.jush-op         { color: var(--jush-op)   !important; }
+.jush-del        { color: var(--text-muted) !important; }
+
+/* Code blocks */
+pre, code {
+  background: #12101f !important;
+  color: var(--text-strong) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  font-family: "Cascadia Code", "Fira Code", "Consolas", monospace !important;
+  font-size: 13px !important;
+  overflow-x: auto !important;
+}
+
+/* Messages and alerts */
+p.message, div.message, .message {
+  background: #22203a !important;
+  border-left: 4px solid var(--purple) !important;
+  border-radius: 6px !important;
+  color: var(--text-strong) !important;
+  padding: 10px 14px !important;
+  margin: 8px 0 !important;
+}
+p.error, div.error, .error {
+  background: #2a1e30 !important;
+  border-left: 4px solid var(--error) !important;
+  border-radius: 6px !important;
+  color: #ffe8ee !important;
+  padding: 10px 14px !important;
+  margin: 8px 0 !important;
+}
+p.success, div.success, .success {
+  background: #1a2e28 !important;
+  border-left: 4px solid var(--ok) !important;
+  border-radius: 6px !important;
+  color: #d1fae5 !important;
+  padding: 10px 14px !important;
+  margin: 8px 0 !important;
+}
+
+/* Fieldsets */
+fieldset {
+  background: var(--bg-soft) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 8px !important;
+  padding: 14px !important;
+  margin: 12px 0 !important;
+  color: var(--text) !important;
+}
+legend {
+  background: var(--bg-elev) !important;
+  color: var(--purple-bright) !important;
+  font-weight: 700 !important;
+  padding: 2px 10px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--purple-border) !important;
+}
+
+/* Edit / insert form rows — Adminer wraps each field in a <tr> */
+#content table.layout tr td table tr td {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: none !important;
+  padding: 4px 6px !important;
+  vertical-align: middle !important;
+}
+
+#content td > label,
+#content td > span {
+  color: var(--text-muted) !important;
+  font-size: 13px !important;
+}
+
+#content select[name^="fields"] {
+  font-size: 12px !important;
+  padding: 4px 6px !important;
+}
+
+/* Login page */
+#login {
+  background: var(--bg-elev) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 12px !important;
+  padding: 24px 28px !important;
+  max-width: 400px !important;
+  margin: 40px auto !important;
+  color: var(--text) !important;
+}
+#login h1 { margin-bottom: 18px !important; }
+#login table { background: transparent !important; border: none !important; }
+#login table td { background: transparent !important; border: none !important; padding: 6px 4px !important; color: var(--text) !important; }
+#login table td label { color: var(--text-muted) !important; }
+
+/* Pagination */
+p.links a,
+.links a { color: var(--purple-bright) !important; margin-right: 6px !important; }
+p.links a:hover { color: #ddd6fe !important; }
+a.active-page,
+span.active-page {
+  background: var(--purple-deep) !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+}
+
+/* Column visibility checkboxes */
+#content p > label,
+#content p > label input[type="checkbox"] {
+  color: var(--text) !important;
+  accent-color: var(--purple) !important;
+}
+
+/* Dropdown nav — some Adminer builds use native <select> */
+#menu select,
+#header select {
+  background: var(--surface) !important;
+  color: var(--text-strong) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+}
+
+/* File upload */
+input[type="file"] {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px dashed var(--purple-border) !important;
+  border-radius: 6px !important;
+  padding: 6px !important;
+}
+input[type="file"]::file-selector-button {
+  background: var(--surface-hi) !important;
+  color: var(--purple-bright) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 4px !important;
+  padding: 4px 10px !important;
+  cursor: pointer !important;
+}
+
+/* Bottom action bar (Whole result / Modify / Selected / Export) */
+#footer,
+div#footer,
+tfoot,
+tfoot tr,
+tfoot td,
+tfoot th,
+#content > div:last-of-type,
+#content > p:last-of-type {
+  background: var(--bg-soft) !important;
+  color: var(--text) !important;
+  border-top: 1px solid var(--line) !important;
+}
+
+fieldset.toggle,
+fieldset[id],
+#content fieldset {
+  background: var(--bg-elev) !important;
+  border: 1px solid var(--purple-border) !important;
+  color: var(--text) !important;
+}
+#content fieldset legend {
+  color: var(--purple-bright) !important;
+}
+#content fieldset td,
+#content fieldset tr,
+#content fieldset table {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+/* Numeric inputs */
+input[type="number"] {
+  background: var(--surface) !important;
+  color: var(--text-strong) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  -moz-appearance: textfield !important;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(80%) hue-rotate(220deg) !important;
+}
+
+/* Top filter boxes (Select / Search / Sort / Limit / Text length / Action) */
+#content table fieldset,
+#content > form > table fieldset,
+form fieldset {
+  background: var(--bg-elev) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 8px !important;
+  color: var(--text) !important;
+}
+form fieldset legend,
+#content table fieldset legend {
+  color: var(--purple-bright) !important;
+  font-weight: 700 !important;
+  background: var(--bg-elev) !important;
+  border: 1px solid var(--purple-border) !important;
+  border-radius: 4px !important;
+  padding: 1px 8px !important;
+}
+form fieldset input,
+form fieldset select,
+#content table fieldset input,
+#content table fieldset select {
+  background: var(--surface) !important;
+  color: var(--text-strong) !important;
+  border-color: var(--line) !important;
+}
+
+/* Custom checkbox rendering */
+.checkable td:first-child,
+.checkable th:first-child,
+td.check,
+th.check {
+  background: transparent !important;
+}
+input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 15px !important;
+  height: 15px !important;
+  border: 2px solid var(--purple-border) !important;
+  border-radius: 3px !important;
+  background: var(--surface) !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  position: relative !important;
+}
+input[type="checkbox"]:checked {
+  background: var(--purple-deep) !important;
+  border-color: var(--purple) !important;
+}
+input[type="checkbox"]:checked::after {
+  content: "✓" !important;
+  position: absolute !important;
+  top: -2px !important;
+  left: 1px !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+input[type="checkbox"]:hover {
+  border-color: var(--purple) !important;
+}
+
+/* Catch-all: kill residual white/light backgrounds on divs */
+#content > div,
+#content > p,
+#content > form > div,
+#content > form > p {
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+/* Login form labels — Adminer uses <th> without a class, inherits dark-on-dark */
+form table th,
+body > form table th,
+#content > form table th {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  border: none !important;
+  padding: 6px 12px 6px 8px !important;
+  font-weight: 600 !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+}
+form table td,
+body > form table td,
+#content > form table td {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: none !important;
+  padding: 5px 4px !important;
+}
+
+#logins td {
+  background: transparent !important;
+  color: var(--purple-bright) !important;
+  border: none !important;
+}
+
+/* White strip between table and bottom fieldset */
+tfoot,
+tfoot > tr,
+tfoot > tr > td,
+tfoot > tr > th {
+  background: var(--bg-soft) !important;
+  color: var(--text) !important;
+  border-top: 2px solid var(--purple-border) !important;
+}
+
+#content > table + fieldset,
+#content > div + fieldset,
+#content > p + fieldset {
+  margin-top: 0 !important;
+  border-top: 1px solid var(--purple-border) !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+/* Confirmed white-zone culprits (via browser inspector) */
+div.footer,
+div.footer > div,
+form > div.footer,
+#content div.footer {
+  background: var(--bg-soft) !important;
+  color: var(--text) !important;
+  border-top: 1px solid var(--purple-border) !important;
+}
+
+div.scrollable,
+#content div.scrollable,
+form div.scrollable {
+  background: var(--bg-soft) !important;
+  color: var(--text) !important;
+}
+
+#content > div:not([class]):not([id]),
+#content > form > div:not([class]):not([id]) {
+  background: transparent !important;
+}
+
+/* Re-anchor backgrounds on key elements */
+#content > table:not(.layout)  { background: var(--bg-soft) !important; }
+#content fieldset               { background: var(--bg-elev) !important; }
+#content h1, #content h2        { background: var(--bg-elev) !important; }
+#content pre, #content code     { background: #12101f !important; }
+#content p.error                { background: #2a1e30 !important; }
+#content p.message              { background: #22203a !important; }
+#content p.success              { background: #1a2e28 !important; }
+
+/* Utility classes */
+.nowrap  { white-space: nowrap !important; }
+.right   { text-align: right !important; }
+.center  { text-align: center !important; }
+
+.help, abbr { color: var(--text-muted) !important; cursor: help !important; }
+abbr { border-bottom: 1px dotted var(--text-muted) !important; text-decoration: none !important; }
+
+#content > p { color: var(--text-muted) !important; font-size: 13px !important; }

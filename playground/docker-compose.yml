@@ -1,0 +1,24 @@
+# Manual restart policy: started on demand to conserve laptop CPU and RAM.
+services:
+  db_playground:
+    image: postgres:16.3-alpine
+    container_name: playground_pg_v1
+    restart: 'no'
+    ports:
+      - '127.0.0.1:5433:5432'
+    env_file: .env
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - playground_pg_data:/var/lib/postgresql/data
+    networks:
+      - core_network
+
+volumes:
+  playground_pg_data:
+networks:
+  core_network:
+    external: true

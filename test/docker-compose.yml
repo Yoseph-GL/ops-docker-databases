@@ -1,0 +1,27 @@
+# No volumes intentional: ephemeral database for integration tests and CI-like workflows.
+# Data is destroyed on `docker compose down`.
+# Use `serious` or `university` stacks when persistence is needed.
+services:
+  db_test_mysql:
+    image: mysql:8.0.36
+    container_name: test_mysql_v1
+    restart: 'no'
+    ports:
+      - '127.0.0.1:3307:3306'
+    env_file: .env
+    networks:
+      - core_network
+
+  db_test_pg:
+    image: postgres:16.3-alpine
+    container_name: test_pg_v1
+    restart: 'no'
+    ports:
+      - '127.0.0.1:5434:5432'
+    env_file: .env
+    networks:
+      - core_network
+
+networks:
+  core_network:
+    external: true

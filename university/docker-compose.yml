@@ -1,0 +1,24 @@
+# Manual restart policy: started on demand to conserve laptop CPU and RAM.
+services:
+  db_university:
+    image: mysql:8.0.36
+    container_name: university_mysql_v1
+    restart: 'no'
+    ports:
+      - '127.0.0.1:3306:3306'
+    env_file: .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - university_data_5term:/var/lib/mysql
+    networks:
+      - core_network
+
+volumes:
+  university_data_5term:
+networks:
+  core_network:
+    external: true

@@ -1,0 +1,28 @@
+# SQL GUI proxy — stateless, routes through Traefik at http://db.test.
+services:
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8082:8080"
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./adminer.css:/var/www/html/adminer.css:ro
+    networks:
+      - db_net
+      - edge_proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=edge_proxy
+      - traefik.http.routers.adminer.rule=Host(`db.test`)
+      - traefik.http.routers.adminer.entrypoints=web
+      - traefik.http.services.adminer.loadbalancer.server.port=8080
+
+networks:
+  db_net:
+    external: true
+    name: db_net
+  edge_proxy:
+    external: true

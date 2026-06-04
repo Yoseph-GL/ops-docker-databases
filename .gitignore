@@ -1,0 +1,25 @@
+# Credentials — never commit
+.env
+!.env.example
+
+# Docker volumes / persistent data
+data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Backups / temp
+*.bak
+*.backup
